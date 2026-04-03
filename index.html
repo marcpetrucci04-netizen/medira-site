@@ -1,0 +1,2009 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Medira Scaling — AI-Powered Marketing for B2B Companies</title>
+  <meta name="description" content="Medira Scaling delivers 30+ pieces of AI-powered content every month across LinkedIn, Instagram, and Facebook. Built for B2B professional services companies.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,700;1,800&display=swap" rel="stylesheet">
+
+  <style>
+    /* ================================================
+       CSS CUSTOM PROPERTIES
+    ================================================ */
+    :root {
+      --bg-primary:     #03080F;
+      --bg-secondary:   #060D1A;
+      --bg-card:        rgba(255,255,255,0.028);
+      --bg-card-solid:  #0A1628;
+      --card-border:    rgba(255,255,255,0.07);
+      --card-border-hi: rgba(13,148,136,0.4);
+      --text-primary:   #E8EFFF;
+      --text-secondary: #6880B0;
+      --text-muted:     #2C3B5A;
+      --accent:         #0D9488;
+      --accent-hover:   #10A99C;
+      --accent-glow:    rgba(13,148,136,0.32);
+      --accent-dim:     rgba(13,148,136,0.10);
+      --blue:           #2563EB;
+      --blue-glow:      rgba(37,99,235,0.20);
+      --grid-line:      rgba(96,165,250,0.03);
+      --border-subtle:  rgba(255,255,255,0.06);
+      --font:           'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      --nav-h:          70px;
+      --max-w:          1160px;
+      --r:              10px;
+    }
+
+    /* ================================================
+       RESET + BASE
+    ================================================ */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font);
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    /* Global grid texture */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image:
+        linear-gradient(var(--grid-line) 1px, transparent 1px),
+        linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
+      background-size: 72px 72px;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    a  { text-decoration: none; color: inherit; }
+    ul { list-style: none; }
+    button { cursor: pointer; border: none; background: none; font-family: var(--font); }
+    img, svg { display: block; max-width: 100%; }
+
+    /* ================================================
+       LAYOUT
+    ================================================ */
+    .wrap {
+      max-width: var(--max-w);
+      margin: 0 auto;
+      padding: 0 28px;
+      position: relative;
+      z-index: 1;
+    }
+
+    section { position: relative; }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 16px;
+    }
+
+    .eyebrow::before {
+      content: '';
+      display: block;
+      width: 18px;
+      height: 1px;
+      background: var(--accent);
+    }
+
+    .section-title {
+      font-size: clamp(28px, 3.8vw, 48px);
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      line-height: 1.05;
+      color: var(--text-primary);
+      margin-bottom: 16px;
+    }
+
+    .section-sub {
+      font-size: 16px;
+      color: var(--text-secondary);
+      max-width: 520px;
+      line-height: 1.75;
+    }
+
+    .section-hd {
+      text-align: center;
+      margin-bottom: 72px;
+    }
+
+    .section-hd .section-sub { margin: 0 auto; }
+
+    /* ================================================
+       SCROLL ANIMATIONS
+    ================================================ */
+    .fade-up {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .fade-up.in { opacity: 1; transform: none; }
+
+    .stagger > .fade-up:nth-child(1) { transition-delay: 0.00s; }
+    .stagger > .fade-up:nth-child(2) { transition-delay: 0.07s; }
+    .stagger > .fade-up:nth-child(3) { transition-delay: 0.14s; }
+    .stagger > .fade-up:nth-child(4) { transition-delay: 0.21s; }
+    .stagger > .fade-up:nth-child(5) { transition-delay: 0.28s; }
+    .stagger > .fade-up:nth-child(6) { transition-delay: 0.35s; }
+
+    /* ================================================
+       BUTTONS
+    ================================================ */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 14px 28px;
+      font-size: 14px;
+      font-weight: 600;
+      letter-spacing: 0.01em;
+      border-radius: 8px;
+      transition: all 0.22s ease;
+      white-space: nowrap;
+      position: relative;
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: #fff;
+      border: 1.5px solid var(--accent);
+    }
+    .btn-primary:hover {
+      background: var(--accent-hover);
+      box-shadow: 0 0 28px var(--accent-glow), 0 0 60px rgba(13,148,136,0.12);
+      transform: translateY(-1px);
+    }
+
+    .btn-outline {
+      background: rgba(255,255,255,0.04);
+      color: var(--text-primary);
+      border: 1.5px solid rgba(255,255,255,0.14);
+      backdrop-filter: blur(8px);
+    }
+    .btn-outline:hover {
+      border-color: rgba(255,255,255,0.32);
+      background: rgba(255,255,255,0.07);
+      transform: translateY(-1px);
+    }
+
+    .btn-ghost {
+      background: rgba(255,255,255,0.03);
+      color: var(--text-secondary);
+      border: 1.5px solid var(--card-border);
+      font-size: 13px;
+      padding: 11px 22px;
+    }
+    .btn-ghost:hover {
+      color: var(--text-primary);
+      border-color: rgba(255,255,255,0.2);
+      background: rgba(255,255,255,0.06);
+    }
+
+    /* ================================================
+       NAVIGATION
+    ================================================ */
+    #nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      height: var(--nav-h);
+      z-index: 900;
+      background: rgba(3,8,15,0.75);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border-subtle);
+    }
+
+    .nav-inner {
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .nav-logo {
+      font-size: 16px;
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      color: var(--text-primary);
+    }
+
+    .nav-logo em { font-style: normal; color: var(--accent); }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 30px;
+    }
+
+    .nav-links a {
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      transition: color 0.18s;
+    }
+
+    .nav-links a:hover,
+    .nav-links a.active { color: var(--text-primary); }
+
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .nav-cta { padding: 9px 18px; font-size: 12px; }
+
+    /* Hamburger */
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      gap: 5px;
+      width: 38px;
+      height: 38px;
+      padding: 7px;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background 0.18s;
+    }
+    .hamburger:hover { background: rgba(255,255,255,0.06); }
+    .hamburger span {
+      display: block;
+      height: 1.5px;
+      width: 100%;
+      background: var(--text-primary);
+      border-radius: 2px;
+      transition: all 0.25s ease;
+    }
+    .hamburger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+    .hamburger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+
+    /* Mobile nav */
+    #mobile-nav {
+      position: fixed;
+      inset: 0;
+      z-index: 800;
+      background: rgba(3,8,15,0.97);
+      backdrop-filter: blur(24px);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.26s ease;
+    }
+    #mobile-nav.open { opacity: 1; pointer-events: all; }
+    #mobile-nav a {
+      font-size: 24px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      color: var(--text-secondary);
+      padding: 10px 28px;
+      border-radius: 8px;
+      transition: color 0.18s, background 0.18s;
+    }
+    #mobile-nav a:hover { color: var(--text-primary); background: rgba(255,255,255,0.04); }
+    #mobile-nav .btn { margin-top: 20px; font-size: 15px; padding: 16px 44px; }
+
+    /* ================================================
+       HERO
+    ================================================ */
+    #hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: calc(var(--nav-h) + 80px) 28px 120px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    /* Planet / orb glow */
+    .hero-orb {
+      position: absolute;
+      bottom: -52%;
+      left: 50%;
+      transform: translateX(-50%);
+      width: min(1000px, 130vw);
+      aspect-ratio: 1;
+      border-radius: 50%;
+      background: radial-gradient(
+        circle at 50% 38%,
+        rgba(13,148,136,0.09) 0%,
+        rgba(37,99,235,0.13) 38%,
+        rgba(13,148,136,0.05) 65%,
+        transparent 100%
+      );
+      border: 1px solid rgba(13,148,136,0.10);
+      box-shadow:
+        0 0 140px rgba(13,148,136,0.10),
+        0 0 280px rgba(37,99,235,0.08),
+        inset 0 60px 120px rgba(13,148,136,0.04);
+      pointer-events: none;
+    }
+
+    /* Canvas for dot field */
+    #hero-canvas {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+    }
+
+    .hero-inner {
+      position: relative;
+      z-index: 2;
+      max-width: 840px;
+      margin: 0 auto;
+    }
+
+    .hero-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 30px;
+      padding: 7px 16px;
+      border: 1px solid rgba(13,148,136,0.25);
+      border-radius: 20px;
+      background: rgba(13,148,136,0.06);
+      backdrop-filter: blur(8px);
+    }
+
+    .hero-h1 {
+      font-size: clamp(40px, 6.5vw, 76px);
+      font-weight: 800;
+      letter-spacing: -0.04em;
+      line-height: 1.02;
+      color: var(--text-primary);
+      margin-bottom: 28px;
+    }
+
+    /* Italic emphasis + teal tint on key phrase */
+    .hero-h1 em {
+      font-style: italic;
+      color: #B2EBE6;
+    }
+
+    .hero-h1 .accent-word {
+      color: var(--accent);
+    }
+
+    .hero-sub {
+      font-size: clamp(15px, 1.8vw, 17px);
+      font-weight: 400;
+      color: var(--text-secondary);
+      max-width: 520px;
+      margin: 0 auto 44px;
+      line-height: 1.8;
+    }
+
+    .hero-ctas {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-bottom: 64px;
+    }
+
+    .hero-ctas .btn {
+      min-width: 190px;
+      padding: 16px 32px;
+      font-size: 14px;
+    }
+
+    /* Stats */
+    .hero-stats {
+      display: inline-flex;
+      border: 1px solid var(--card-border);
+      border-radius: var(--r);
+      background: rgba(255,255,255,0.02);
+      backdrop-filter: blur(12px);
+      overflow: hidden;
+    }
+
+    .h-stat {
+      padding: 18px 32px;
+      text-align: center;
+      position: relative;
+    }
+
+    .h-stat:not(:last-child)::after {
+      content: '';
+      position: absolute;
+      right: 0; top: 20%; height: 60%;
+      width: 1px;
+      background: var(--card-border);
+    }
+
+    .h-stat-n {
+      display: block;
+      font-size: 22px;
+      font-weight: 800;
+      letter-spacing: -0.04em;
+      color: var(--text-primary);
+      line-height: 1;
+      margin-bottom: 4px;
+    }
+
+    .h-stat-l {
+      display: block;
+      font-size: 11px;
+      color: var(--text-secondary);
+      white-space: nowrap;
+    }
+
+    /* Scroll hint */
+    .scroll-hint {
+      position: absolute;
+      bottom: 36px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 7px;
+      opacity: 0.3;
+    }
+
+    .scroll-hint span {
+      font-size: 9px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--text-secondary);
+    }
+
+    .scroll-arr {
+      width: 18px;
+      height: 18px;
+      border-right: 1.5px solid var(--text-secondary);
+      border-bottom: 1.5px solid var(--text-secondary);
+      transform: rotate(45deg);
+      animation: arr-bounce 2s ease infinite;
+    }
+
+    @keyframes arr-bounce {
+      0%,100% { transform: rotate(45deg) translateY(0); }
+      50%      { transform: rotate(45deg) translateY(5px); }
+    }
+
+    /* ================================================
+       SOCIAL PROOF BAR
+    ================================================ */
+    #social-proof {
+      background: var(--bg-secondary);
+      border-top: 1px solid var(--border-subtle);
+      border-bottom: 1px solid var(--border-subtle);
+      padding: 48px 0;
+      position: relative;
+      z-index: 1;
+    }
+
+    .proof-label {
+      text-align: center;
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 28px;
+    }
+
+    .client-pills {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .client-pill {
+      padding: 8px 16px;
+      background: rgba(255,255,255,0.025);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 4px;
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.05em;
+      color: var(--text-muted);
+      transition: color 0.18s, border-color 0.18s;
+    }
+
+    .client-pill:hover { color: var(--text-secondary); border-color: rgba(255,255,255,0.14); }
+
+    /* ================================================
+       PROBLEM SECTION
+    ================================================ */
+    #problem {
+      padding: 130px 0;
+      background: var(--bg-primary);
+    }
+
+    .problem-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+
+    .problem-card {
+      background: var(--bg-card);
+      border: 1px solid var(--card-border);
+      border-radius: var(--r);
+      padding: 40px 34px;
+      backdrop-filter: blur(8px);
+      transition: border-color 0.25s, transform 0.25s, box-shadow 0.25s;
+    }
+
+    .problem-card:hover {
+      border-color: rgba(255,255,255,0.12);
+      transform: translateY(-3px);
+      box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+    }
+
+    .prob-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 10px;
+      background: var(--accent-dim);
+      border: 1px solid rgba(13,148,136,0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 22px;
+      color: var(--accent);
+    }
+
+    .problem-card h3 {
+      font-size: 17px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      color: var(--text-primary);
+      margin-bottom: 10px;
+    }
+
+    .problem-card p {
+      font-size: 14px;
+      color: var(--text-secondary);
+      line-height: 1.8;
+    }
+
+    /* ================================================
+       SERVICES SECTION
+    ================================================ */
+    #services {
+      padding: 130px 0;
+      background: var(--bg-secondary);
+    }
+
+    /* Apple hairline grid, glassmorphism fill */
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      border: 1px solid var(--card-border);
+      border-radius: var(--r);
+      overflow: hidden;
+    }
+
+    .svc {
+      padding: 42px 38px;
+      background: rgba(255,255,255,0.02);
+      border-right: 1px solid var(--card-border);
+      border-bottom: 1px solid var(--card-border);
+      transition: background 0.25s;
+      backdrop-filter: blur(6px);
+    }
+
+    .svc:nth-child(3n)    { border-right: none; }
+    .svc:nth-last-child(-n+3) { border-bottom: none; }
+    .svc:hover { background: rgba(255,255,255,0.045); }
+
+    .svc-icon {
+      width: 38px;
+      height: 38px;
+      border-radius: 8px;
+      background: var(--accent-dim);
+      border: 1px solid rgba(13,148,136,0.18);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 18px;
+      color: var(--accent);
+    }
+
+    .svc h3 {
+      font-size: 15px;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      color: var(--text-primary);
+      margin-bottom: 8px;
+    }
+
+    .svc p {
+      font-size: 13px;
+      color: var(--text-secondary);
+      line-height: 1.75;
+    }
+
+    /* ================================================
+       PROCESS SECTION
+    ================================================ */
+    #process {
+      padding: 130px 0;
+      background: var(--bg-primary);
+    }
+
+    .process-steps {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      position: relative;
+    }
+
+    /* Connecting gradient line */
+    .process-steps::before {
+      content: '';
+      position: absolute;
+      top: 22px;
+      left: calc(12.5% + 2px);
+      right: calc(12.5% + 2px);
+      height: 1px;
+      background: linear-gradient(
+        to right,
+        var(--accent) 0%,
+        rgba(37,99,235,0.4) 50%,
+        rgba(13,148,136,0.15) 100%
+      );
+    }
+
+    .process-step {
+      text-align: center;
+      padding: 0 24px;
+    }
+
+    .step-num {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: var(--accent);
+      color: #fff;
+      font-size: 14px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 26px;
+      position: relative;
+      z-index: 1;
+      flex-shrink: 0;
+      box-shadow: 0 0 0 6px var(--bg-primary), 0 0 20px var(--accent-glow);
+    }
+
+    .process-step h3 {
+      font-size: 15px;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      color: var(--text-primary);
+      margin-bottom: 8px;
+    }
+
+    .process-step p {
+      font-size: 13px;
+      color: var(--text-secondary);
+      line-height: 1.75;
+    }
+
+    /* ================================================
+       PRICING SECTION
+    ================================================ */
+    #pricing {
+      padding: 130px 0;
+      background: var(--bg-secondary);
+    }
+
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      align-items: start;
+      margin-bottom: 24px;
+    }
+
+    .pricing-card {
+      background: var(--bg-card);
+      border: 1px solid var(--card-border);
+      border-radius: var(--r);
+      padding: 40px 34px;
+      position: relative;
+      backdrop-filter: blur(8px);
+      transition: transform 0.25s, box-shadow 0.25s;
+    }
+
+    .pricing-card:hover {
+      transform: scale(1.02);
+      box-shadow: 0 24px 64px rgba(0,0,0,0.35);
+    }
+
+    .pricing-card.featured {
+      border-color: rgba(13,148,136,0.45);
+      background: linear-gradient(
+        160deg,
+        rgba(13,148,136,0.06) 0%,
+        rgba(37,99,235,0.04) 100%
+      );
+    }
+
+    .pricing-card.featured:hover {
+      box-shadow: 0 24px 64px rgba(13,148,136,0.10), 0 0 0 1px rgba(13,148,136,0.3);
+    }
+
+    .pricing-badge {
+      position: absolute;
+      top: -13px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--accent);
+      color: #fff;
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      padding: 4px 14px;
+      border-radius: 20px;
+      white-space: nowrap;
+      box-shadow: 0 0 16px var(--accent-glow);
+    }
+
+    .plan-name {
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 14px;
+    }
+
+    .plan-price {
+      display: flex;
+      align-items: flex-start;
+      line-height: 1;
+      margin-bottom: 5px;
+    }
+
+    .plan-price sup {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--text-secondary);
+      margin-top: 9px;
+      margin-right: 2px;
+    }
+
+    .plan-price span {
+      font-size: 50px;
+      font-weight: 800;
+      letter-spacing: -0.045em;
+      color: var(--text-primary);
+    }
+
+    .plan-period {
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-bottom: 26px;
+    }
+
+    .plan-divider {
+      height: 1px;
+      background: var(--card-border);
+      margin-bottom: 22px;
+    }
+
+    .plan-features { margin-bottom: 30px; }
+
+    .plan-features li {
+      display: flex;
+      align-items: flex-start;
+      gap: 9px;
+      font-size: 13px;
+      color: var(--text-secondary);
+      padding: 5px 0;
+      line-height: 1.5;
+    }
+
+    .chk {
+      width: 16px;
+      height: 16px;
+      min-width: 16px;
+      border-radius: 50%;
+      background: var(--accent-dim);
+      border: 1px solid rgba(13,148,136,0.25);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 1px;
+    }
+
+    .chk svg { width: 8px; height: 8px; color: var(--accent); }
+
+    .plan-cta { width: 100%; }
+
+    .pricing-note {
+      text-align: center;
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    /* ================================================
+       TESTIMONIALS
+    ================================================ */
+    #testimonials {
+      padding: 130px 0;
+      background: var(--bg-primary);
+    }
+
+    .testimonials-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+
+    .testimonial-card {
+      background: var(--bg-card);
+      border: 1px solid var(--card-border);
+      border-left: 2px solid var(--accent);
+      border-radius: 0 var(--r) var(--r) 0;
+      padding: 34px 30px;
+      backdrop-filter: blur(8px);
+      transition: transform 0.25s, border-color 0.25s;
+    }
+
+    .testimonial-card:hover {
+      transform: translateY(-3px);
+      border-color: rgba(255,255,255,0.12);
+      border-left-color: var(--accent);
+    }
+
+    .t-stars {
+      display: flex;
+      gap: 3px;
+      margin-bottom: 18px;
+    }
+
+    .t-stars svg { width: 12px; height: 12px; color: var(--accent); }
+
+    .t-quote {
+      font-size: 14px;
+      color: var(--text-secondary);
+      line-height: 1.8;
+      margin-bottom: 24px;
+      font-style: italic;
+    }
+
+    .t-author {
+      border-top: 1px solid var(--card-border);
+      padding-top: 18px;
+    }
+
+    .t-name {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-bottom: 3px;
+    }
+
+    .t-title { font-size: 11px; color: var(--text-muted); }
+
+    /* ================================================
+       FAQ SECTION
+    ================================================ */
+    #faq {
+      padding: 130px 0;
+      background: var(--bg-secondary);
+    }
+
+    .faq-list {
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    .faq-item {
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+
+    .faq-q {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      padding: 22px 0;
+      font-size: 15px;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      color: var(--text-primary);
+      text-align: left;
+      background: none;
+      border: none;
+      cursor: pointer;
+      transition: color 0.18s;
+    }
+
+    .faq-q:hover { color: var(--accent); }
+
+    .faq-ico {
+      width: 20px;
+      height: 20px;
+      min-width: 20px;
+      border-radius: 50%;
+      border: 1px solid rgba(255,255,255,0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-muted);
+      transition: transform 0.3s, background 0.2s, border-color 0.2s;
+      flex-shrink: 0;
+    }
+
+    .faq-item.open .faq-ico {
+      transform: rotate(45deg);
+      background: var(--accent-dim);
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    .faq-body {
+      overflow: hidden;
+      max-height: 0;
+      transition: max-height 0.38s ease;
+    }
+
+    .faq-item.open .faq-body { max-height: 260px; }
+
+    .faq-body p {
+      font-size: 14px;
+      color: var(--text-secondary);
+      line-height: 1.8;
+      padding-bottom: 22px;
+    }
+
+    /* ================================================
+       CONTACT SECTION
+    ================================================ */
+    #contact {
+      padding: 130px 0;
+      background: var(--bg-primary);
+    }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: start;
+    }
+
+    .contact-left h2 {
+      font-size: clamp(28px, 3.2vw, 44px);
+      font-weight: 800;
+      letter-spacing: -0.035em;
+      line-height: 1.06;
+      color: var(--text-primary);
+      margin-bottom: 16px;
+    }
+
+    .contact-left p {
+      font-size: 15px;
+      color: var(--text-secondary);
+      line-height: 1.8;
+      margin-bottom: 32px;
+    }
+
+    .contact-form {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .form-group label {
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+
+    .form-group input,
+    .form-group textarea {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 7px;
+      padding: 13px 15px;
+      font-size: 14px;
+      font-family: var(--font);
+      color: var(--text-primary);
+      transition: border-color 0.18s, box-shadow 0.18s;
+      outline: none;
+      -webkit-appearance: none;
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(13,148,136,0.10);
+    }
+
+    .form-group input::placeholder,
+    .form-group textarea::placeholder { color: var(--text-muted); }
+
+    .form-group textarea {
+      resize: vertical;
+      min-height: 100px;
+    }
+
+    .form-submit { width: 100%; padding: 16px; font-size: 14px; }
+
+    .form-note {
+      text-align: center;
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+
+    /* ================================================
+       FOOTER
+    ================================================ */
+    #footer {
+      background: var(--bg-secondary);
+      border-top: 1px solid var(--border-subtle);
+      position: relative;
+      z-index: 1;
+    }
+
+    .footer-main {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr;
+      gap: 56px;
+      padding: 64px 0 56px;
+    }
+
+    .footer-brand-name {
+      font-size: 16px;
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      color: var(--text-primary);
+      margin-bottom: 10px;
+    }
+
+    .footer-tagline {
+      font-size: 13px;
+      color: var(--text-muted);
+      line-height: 1.7;
+      margin-bottom: 20px;
+    }
+
+    .footer-copy { font-size: 11px; color: var(--text-muted); }
+
+    .footer-col h4 {
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 18px;
+    }
+
+    .footer-col ul { display: flex; flex-direction: column; gap: 11px; }
+
+    .footer-col li a {
+      font-size: 13px;
+      color: var(--text-secondary);
+      transition: color 0.18s;
+    }
+
+    .footer-col li a:hover { color: var(--text-primary); }
+
+    .footer-body {
+      font-size: 13px;
+      color: var(--text-secondary);
+      line-height: 1.7;
+      margin-bottom: 18px;
+    }
+
+    .social-icons { display: flex; gap: 8px; }
+
+    .social-icon {
+      width: 36px;
+      height: 36px;
+      background: var(--bg-card);
+      border: 1px solid var(--card-border);
+      border-radius: 7px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-muted);
+      transition: color 0.18s, border-color 0.18s, background 0.18s;
+    }
+
+    .social-icon:hover {
+      color: var(--accent);
+      border-color: rgba(13,148,136,0.35);
+      background: var(--accent-dim);
+    }
+
+    .footer-bottom {
+      border-top: 1px solid var(--border-subtle);
+      padding: 22px 0;
+      text-align: center;
+      font-size: 11px;
+      color: var(--text-muted);
+      letter-spacing: 0.04em;
+    }
+
+    /* ================================================
+       RESPONSIVE — 768px
+    ================================================ */
+    @media (max-width: 768px) {
+      :root { --nav-h: 62px; }
+
+      .nav-links, .nav-right .btn-outline { display: none; }
+      .hamburger { display: flex; }
+
+      .hero-stats {
+        flex-direction: column;
+        display: flex;
+        border: none;
+      }
+      .h-stat {
+        border-bottom: 1px solid var(--card-border);
+        padding: 13px 22px;
+      }
+      .h-stat:last-child { border-bottom: none; }
+      .h-stat::after { display: none !important; }
+
+      .hero-orb   { width: min(700px, 150vw); bottom: -45%; }
+
+      .problem-grid  { grid-template-columns: 1fr; }
+
+      .services-grid { grid-template-columns: 1fr 1fr; }
+      .svc:nth-child(3n)     { border-right: 1px solid var(--card-border); }
+      .svc:nth-child(2n)     { border-right: none; }
+      .svc:nth-last-child(-n+2) { border-bottom: none; }
+      .svc:nth-last-child(-n+3) { border-bottom: 1px solid var(--card-border); }
+      .svc:last-child { border-bottom: none; }
+
+      .process-steps { grid-template-columns: 1fr; }
+      .process-steps::before { display: none; }
+      .process-step {
+        display: flex;
+        text-align: left;
+        gap: 20px;
+        padding: 0 0 40px;
+        position: relative;
+      }
+      .process-step:not(:last-child)::after {
+        content: '';
+        position: absolute;
+        left: 21px; top: 44px; bottom: 0;
+        width: 1px;
+        background: rgba(13,148,136,0.18);
+      }
+      .step-num { margin: 0; flex-shrink: 0; }
+
+      .pricing-grid { grid-template-columns: 1fr; max-width: 400px; margin: 0 auto 24px; }
+      .testimonials-grid { grid-template-columns: 1fr; }
+      .contact-grid { grid-template-columns: 1fr; gap: 48px; }
+      .form-row { grid-template-columns: 1fr; }
+      .footer-main { grid-template-columns: 1fr; gap: 36px; }
+    }
+
+    @media (max-width: 480px) {
+      :root { --nav-h: 56px; }
+      #hero { padding-top: calc(var(--nav-h) + 52px); }
+      .hero-ctas { flex-direction: column; align-items: stretch; }
+      .hero-ctas .btn { min-width: unset; width: 100%; }
+      .services-grid { grid-template-columns: 1fr; }
+      .svc { border-right: none !important; }
+      .svc:not(:last-child) { border-bottom: 1px solid var(--card-border) !important; }
+      .svc:last-child { border-bottom: none !important; }
+      .section-title { font-size: 26px; }
+    }
+
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <header id="nav">
+    <div class="wrap">
+      <nav class="nav-inner">
+        <a href="#hero" class="nav-logo">Medira<em>.</em>Scaling</a>
+        <div class="nav-links">
+          <a href="#services">Services</a>
+          <a href="#testimonials">Results</a>
+          <a href="#process">Process</a>
+          <a href="#contact">Contact</a>
+        </div>
+        <div class="nav-right">
+          <a href="#contact" class="btn btn-primary nav-cta">Book a Call</a>
+          <button class="hamburger" id="hamburger" aria-label="Toggle navigation" aria-expanded="false">
+            <span></span><span></span><span></span>
+          </button>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <!-- MOBILE NAV -->
+  <nav id="mobile-nav" aria-hidden="true">
+    <a href="#services"     class="mn-link">Services</a>
+    <a href="#testimonials" class="mn-link">Results</a>
+    <a href="#process"      class="mn-link">Process</a>
+    <a href="#pricing"      class="mn-link">Pricing</a>
+    <a href="#contact"      class="mn-link">Contact</a>
+    <a href="#contact"      class="btn btn-primary mn-link">Book a Call</a>
+  </nav>
+
+  <main>
+
+    <!-- ======================================================
+         HERO
+    ====================================================== -->
+    <section id="hero">
+      <canvas id="hero-canvas" aria-hidden="true"></canvas>
+      <div class="hero-orb" aria-hidden="true"></div>
+
+      <div class="hero-inner">
+        <div class="hero-eyebrow fade-up">
+          <svg width="8" height="8" viewBox="0 0 8 8" fill="currentColor"><circle cx="4" cy="4" r="4"/></svg>
+          AI Marketing Agency
+        </div>
+
+        <h1 class="hero-h1 fade-up">
+          Your Competitors Are<br>
+          <em>Building</em> Their Audience.<br>
+          <span class="accent-word">Are You?</span>
+        </h1>
+
+        <p class="hero-sub fade-up">
+          30+ pieces of AI content per month. Three platforms, fully managed.
+          While you focus on running your business.
+        </p>
+
+        <div class="hero-ctas fade-up">
+          <a href="#contact" class="btn btn-primary">Book a Discovery Call</a>
+          <a href="#services" class="btn btn-outline">See What We Do</a>
+        </div>
+
+        <div class="hero-stats fade-up">
+          <div class="h-stat">
+            <span class="h-stat-n">30+</span>
+            <span class="h-stat-l">pieces of content/month</span>
+          </div>
+          <div class="h-stat">
+            <span class="h-stat-n">3</span>
+            <span class="h-stat-l">platforms, fully managed</span>
+          </div>
+          <div class="h-stat">
+            <span class="h-stat-n">95%+</span>
+            <span class="h-stat-l">gross margin for clients</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="scroll-hint" aria-hidden="true">
+        <span>Scroll</span>
+        <div class="scroll-arr"></div>
+      </div>
+    </section>
+
+    <!-- ======================================================
+         SOCIAL PROOF
+         Replace with real client names/logos when available
+    ====================================================== -->
+    <section id="social-proof">
+      <div class="wrap">
+        <p class="proof-label fade-up">Trusted by B2B companies across professional services, technology, and consulting</p>
+        <div class="client-pills stagger">
+          <!-- Replace with real client names/logos when available -->
+          <div class="client-pill fade-up">Professional Services Firm</div>
+          <div class="client-pill fade-up">B2B Technology Company</div>
+          <div class="client-pill fade-up">Management Consultancy</div>
+          <div class="client-pill fade-up">Financial Services Firm</div>
+          <div class="client-pill fade-up">B2B Services Company</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================================================
+         PROBLEM
+    ====================================================== -->
+    <section id="problem">
+      <div class="wrap">
+        <div class="section-hd fade-up">
+          <p class="eyebrow">The Reality</p>
+          <h2 class="section-title">You Have the Expertise.<br>They Just Can't Find You.</h2>
+          <p class="section-sub">Your buyers are on LinkedIn every day. They're making decisions based on what they see — and right now, they're not seeing you.</p>
+        </div>
+
+        <div class="problem-grid stagger">
+          <div class="problem-card fade-up">
+            <div class="prob-icon">
+              <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" xmlns="http://www.w3.org/2000/svg">
+                <path d="M2 16c2-4 4-6.5 8-6.5s6 2.5 8 6.5"/>
+                <path d="M5 12.5c1.3-2.5 2.5-4 5-4s3.7 1.5 5 4"/>
+                <circle cx="10" cy="17" r="1.2" fill="currentColor" stroke="none"/>
+              </svg>
+            </div>
+            <h3>No Consistent Presence</h3>
+            <p>Competitors post every day. You post twice a month. Decision-makers notice the gap — and they're drawing conclusions.</p>
+          </div>
+
+          <div class="problem-card fade-up">
+            <div class="prob-icon">
+              <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg">
+                <rect x="2" y="3" width="16" height="14" rx="2"/>
+                <path d="M5 8h10M5 11h6M5 14h8"/>
+              </svg>
+            </div>
+            <h3>Wrong Agency Results</h3>
+            <p>Traditional agencies charge $15K/month for content that doesn't understand your industry. Your buyers can tell immediately.</p>
+          </div>
+
+          <div class="problem-card fade-up">
+            <div class="prob-icon">
+              <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="10" cy="10" r="8"/>
+                <path d="M10 5.5v4.5l3 2"/>
+              </svg>
+            </div>
+            <h3>No Time to Build It</h3>
+            <p>A real content engine takes months and a full hire. Your team is already at capacity. It's never going to happen internally.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================================================
+         SERVICES
+    ====================================================== -->
+    <section id="services">
+      <div class="wrap">
+        <div class="section-hd fade-up">
+          <p class="eyebrow">Deliverables</p>
+          <h2 class="section-title">Everything Handled.<br>Nothing Missed.</h2>
+          <p class="section-sub">One retainer. Six deliverables. The complete content operation — automated.</p>
+        </div>
+
+        <div class="services-grid stagger">
+          <div class="svc fade-up">
+            <div class="svc-icon">
+              <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="1" y="2" width="16" height="14" rx="1.5"/>
+                <circle cx="6" cy="7.5" r="1.5"/>
+                <path d="M1 13l5-4 3 3 3-2 5 3"/>
+              </svg>
+            </div>
+            <h3>AI Image Creatives</h3>
+            <p>30 platform-ready creatives per month across LinkedIn, Instagram, and Facebook — built around your brand.</p>
+          </div>
+
+          <div class="svc fade-up">
+            <div class="svc-icon">
+              <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="1" y="4" width="12" height="10" rx="1.5"/>
+                <path d="M13 7l4 2-4 2V7z" fill="currentColor" stroke="none"/>
+              </svg>
+            </div>
+            <h3>Video Content</h3>
+            <p>5 branded AI-generated video clips per month — motion content your competition at this price point can't match.</p>
+          </div>
+
+          <div class="svc fade-up">
+            <div class="svc-icon">
+              <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round">
+                <path d="M2 5h14M2 9h9M2 13h11"/>
+              </svg>
+            </div>
+            <h3>Caption &amp; Copy</h3>
+            <p>Every post, platform-optimized in your brand's exact voice. Credible copy that earns attention from sophisticated buyers.</p>
+          </div>
+
+          <div class="svc fade-up">
+            <div class="svc-icon">
+              <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="7" cy="9" r="5"/>
+                <circle cx="12" cy="9" r="5"/>
+              </svg>
+            </div>
+            <h3>Competitor Monitoring</h3>
+            <p>Weekly digest of what's performing in your space. You're always a step ahead — without lifting a finger.</p>
+          </div>
+
+          <div class="svc fade-up">
+            <div class="svc-icon">
+              <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="1" y="1" width="16" height="16" rx="2"/>
+                <path d="M4 13l4-5 3 3.5 2.5-4L14 13"/>
+              </svg>
+            </div>
+            <h3>Automated Reporting</h3>
+            <p>A professional performance report lands in your inbox on the 1st. Reach, engagement, growth — already formatted.</p>
+          </div>
+
+          <div class="svc fade-up">
+            <div class="svc-icon">
+              <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round">
+                <circle cx="9" cy="9" r="7.5"/>
+                <path d="M9 4.5V9l2.5 1.5"/>
+              </svg>
+            </div>
+            <h3>Full Scheduling</h3>
+            <p>Every post published automatically at optimal times across all three platforms. Zero manual work. Nothing missed.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================================================
+         PROCESS
+    ====================================================== -->
+    <section id="process">
+      <div class="wrap">
+        <div class="section-hd fade-up">
+          <p class="eyebrow">Onboarding</p>
+          <h2 class="section-title">Live in 14 Days.</h2>
+          <p class="section-sub">From kickoff to published content in under two weeks.</p>
+        </div>
+
+        <div class="process-steps stagger">
+          <div class="process-step fade-up">
+            <div class="step-num">1</div>
+            <div>
+              <h3>Discovery Call</h3>
+              <p>30 minutes. We learn your business, your audience, and what winning looks like.</p>
+            </div>
+          </div>
+
+          <div class="process-step fade-up">
+            <div class="step-num">2</div>
+            <div>
+              <h3>Creative Build</h3>
+              <p>We produce your entire first month — images, videos, captions, and schedule — in one session.</p>
+            </div>
+          </div>
+
+          <div class="process-step fade-up">
+            <div class="step-num">3</div>
+            <div>
+              <h3>Your Approval</h3>
+              <p>Review everything before it goes live. We revise until it's exactly right.</p>
+            </div>
+          </div>
+
+          <div class="process-step fade-up">
+            <div class="step-num">4</div>
+            <div>
+              <h3>Fully Automated</h3>
+              <p>Content publishes itself. Digests and reports arrive on schedule. You do nothing.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================================================
+         PRICING
+    ====================================================== -->
+    <section id="pricing">
+      <div class="wrap">
+        <div class="section-hd fade-up">
+          <p class="eyebrow">Plans</p>
+          <h2 class="section-title">Simple Pricing.</h2>
+          <p class="section-sub">No contracts. No surprises. Cancel anytime.</p>
+        </div>
+
+        <div class="pricing-grid stagger">
+          <!-- Starter -->
+          <div class="pricing-card fade-up">
+            <p class="plan-name">Starter</p>
+            <div class="plan-price"><sup>$</sup><span>3,500</span></div>
+            <p class="plan-period">per month + $10,000 one-time setup</p>
+            <div class="plan-divider"></div>
+            <ul class="plan-features">
+              <li><span class="chk"><svg viewBox="0 0 8 8" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M1.5 4l2 2 3-3"/></svg></span>15 images/month</li>
+              <li><span class="chk"><svg viewBox="0 0 8 8" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M1.5 4l2 2 3-3"/></svg></span>2 videos/month</li>
+              <li><span class="chk"><svg viewBox="0 0 8 8" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M1.5 4l2 2 3-3"/></svg></span>LinkedIn + 1 platform</li>
+              <li><span class="chk"><svg viewBox="0 0 8 8" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M1.5 4l2 2 3-3"/></svg></span>Monthly performance report (automated)</li>
+              <li><span class="chk"><svg viewBox="0 0 8 8" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M1.5 4l2 2 3-3"/></svg></span>Weekly competitor digest (automated)</li>
+              <li><span class="chk"><svg viewBox="0 0 8 8" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M1.5 4l2 2 3-3"/></svg></span>Competitor intelligence included</li>
+              <li><span class="chk"><svg viewBox="0 0 8 8" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M1.5 4l2 2 3-3"/></svg></span>Make.com automations live</li>
+            </ul>
+            <a href="#contact" class="btn btn-ghost plan-cta">Get Started</a>
+          </div>
+
+          <!-- Standard — featured -->
+          <div class="pricing-card featured fade-up">
+            <div class="pricing-badge">Most Popular</div>
+            <p class="plan-name">Standard</p>
+            <div class="plan-price"><sup>$</sup><span>5,000</span></div>
+            <p class="plan-period">per month + $10,000 one-time setup</p>
+            <div class="plan-divider"></div>
+            <ul class="plan-features">
+              <li><span class="chk"><svg viewBox="0 0 8 8" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M1.5 4l2 2 3-3"/></svg></span>30 images/month</li>
+              <li><span class="chk"><svg viewBox="0 0 8 8" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M1.5 4l2 2 3-3"/></svg></span>5 videos/month</li>
+              <li><span class="chk"><svg viewBox="0 0 8 8" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M1.5 4l2 2 3-3"/></svg></span>LinkedIn + Instagram + Facebook</li>
+              <li><span class="chk"><svg viewBox="0 0 8 8" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M1.5 4l2 2 3-3"/></svg></span>Monthly performance report (automated)</li>
+              <li><span class="chk"><svg viewBox="0 0 8 8" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M1.5 4l2 2 3-3"/></svg></span>Weekly competitor digest (automated)</li>
+              <li><span class="chk"><svg viewBox="0 0 8 8" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M1.5 4l2 2 3-3"/></svg></span>Competitor intelligence included</li>
+              <li><span class="chk"><svg viewBox="0 0 8 8" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M1.5 4l2 2 3-3"/></svg></span>Strategy memo each batch</li>
+              <li><span class="chk"><svg viewBox="0 0 8 8" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M1.5 4l2 2 3-3"/></svg></span>Make.com automations live</li>
+              <li><span class="chk"><svg viewBox="0 0 8 8" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M1.5 4l2 2 3-3"/></svg></span>Monthly strategy check-in call</li>
+            </ul>
+            <a href="#contact" class="btn btn-primary plan-cta">Book a Call</a>
+          </div>
+
+          <!-- Authority -->
+          <div class="pricing-card fade-up">
+            <p class="plan-name">Authority</p>
+            <div class="plan-price"><sup>$</sup><span>7,500</span></div>
+            <p class="plan-period">per month + $10,000 one-time setup</p>
+            <div class="plan-divider"></div>
+            <ul class="plan-features">
+              <li><span class="chk"><svg viewBox="0 0 8 8" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M1.5 4l2 2 3-3"/></svg></span>50+ images/month</li>
+              <li><span class="chk"><svg viewBox="0 0 8 8" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M1.5 4l2 2 3-3"/></svg></span>10 videos/month</li>
+              <li><span class="chk"><svg viewBox="0 0 8 8" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M1.5 4l2 2 3-3"/></svg></span>All platforms</li>
+              <li><span class="chk"><svg viewBox="0 0 8 8" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M1.5 4l2 2 3-3"/></svg></span>Everything in Standard</li>
+              <li><span class="chk"><svg viewBox="0 0 8 8" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M1.5 4l2 2 3-3"/></svg></span>Client reporting dashboard</li>
+              <li><span class="chk"><svg viewBox="0 0 8 8" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M1.5 4l2 2 3-3"/></svg></span>LinkedIn executive ghostwriting</li>
+              <li><span class="chk"><svg viewBox="0 0 8 8" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M1.5 4l2 2 3-3"/></svg></span>Monthly SEO blog post</li>
+              <li><span class="chk"><svg viewBox="0 0 8 8" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M1.5 4l2 2 3-3"/></svg></span>Bi-weekly strategy call</li>
+            </ul>
+            <a href="#contact" class="btn btn-ghost plan-cta">Get Started</a>
+          </div>
+        </div>
+
+        <p class="pricing-note fade-up">All plans include a $10,000 one-time setup fee covering website build, brand system, social profile overhaul, and full automation infrastructure. No minimum contract. Cancel monthly retainer anytime.</p>
+      </div>
+    </section>
+
+    <!-- ======================================================
+         TESTIMONIALS
+         Replace with real testimonials when available
+    ====================================================== -->
+    <section id="testimonials">
+      <div class="wrap">
+        <div class="section-hd fade-up">
+          <p class="eyebrow">Client Results</p>
+          <h2 class="section-title">Don't Take Our Word For It.</h2>
+          <p class="section-sub">From organizations that were invisible online six months ago.</p>
+        </div>
+
+        <div class="testimonials-grid stagger">
+          <!-- Replace with real testimonial when available -->
+          <div class="testimonial-card fade-up">
+            <div class="t-stars">
+              <svg viewBox="0 0 12 12" fill="currentColor"><path d="M6 1l1.2 3.6H11L8.2 7l1.2 3.6L6 8.8l-3.4 1.8L3.8 7 1 4.6h3.8z"/></svg>
+              <svg viewBox="0 0 12 12" fill="currentColor"><path d="M6 1l1.2 3.6H11L8.2 7l1.2 3.6L6 8.8l-3.4 1.8L3.8 7 1 4.6h3.8z"/></svg>
+              <svg viewBox="0 0 12 12" fill="currentColor"><path d="M6 1l1.2 3.6H11L8.2 7l1.2 3.6L6 8.8l-3.4 1.8L3.8 7 1 4.6h3.8z"/></svg>
+              <svg viewBox="0 0 12 12" fill="currentColor"><path d="M6 1l1.2 3.6H11L8.2 7l1.2 3.6L6 8.8l-3.4 1.8L3.8 7 1 4.6h3.8z"/></svg>
+              <svg viewBox="0 0 12 12" fill="currentColor"><path d="M6 1l1.2 3.6H11L8.2 7l1.2 3.6L6 8.8l-3.4 1.8L3.8 7 1 4.6h3.8z"/></svg>
+            </div>
+            <p class="t-quote">"We had almost no LinkedIn presence before Medira. Within 60 days we had decision-makers from two target companies reaching out directly after seeing our posts. The content is specific, credible, and actually sounds like us."</p>
+            <div class="t-author">
+              <div class="t-name">[Name]</div><!-- Replace with real name when available -->
+              <div class="t-title">Chief Operating Officer &middot; [B2B Services Company]</div>
+            </div>
+          </div>
+
+          <!-- Replace with real testimonial when available -->
+          <div class="testimonial-card fade-up">
+            <div class="t-stars">
+              <svg viewBox="0 0 12 12" fill="currentColor"><path d="M6 1l1.2 3.6H11L8.2 7l1.2 3.6L6 8.8l-3.4 1.8L3.8 7 1 4.6h3.8z"/></svg>
+              <svg viewBox="0 0 12 12" fill="currentColor"><path d="M6 1l1.2 3.6H11L8.2 7l1.2 3.6L6 8.8l-3.4 1.8L3.8 7 1 4.6h3.8z"/></svg>
+              <svg viewBox="0 0 12 12" fill="currentColor"><path d="M6 1l1.2 3.6H11L8.2 7l1.2 3.6L6 8.8l-3.4 1.8L3.8 7 1 4.6h3.8z"/></svg>
+              <svg viewBox="0 0 12 12" fill="currentColor"><path d="M6 1l1.2 3.6H11L8.2 7l1.2 3.6L6 8.8l-3.4 1.8L3.8 7 1 4.6h3.8z"/></svg>
+              <svg viewBox="0 0 12 12" fill="currentColor"><path d="M6 1l1.2 3.6H11L8.2 7l1.2 3.6L6 8.8l-3.4 1.8L3.8 7 1 4.6h3.8z"/></svg>
+            </div>
+            <p class="t-quote">"I was skeptical about AI-generated content for our industry — our buyers are sophisticated. But the copy is precise, uses the right terminology, and the images look better than what agencies charged us triple for."</p>
+            <div class="t-author">
+              <div class="t-name">[Name]</div><!-- Replace with real name when available -->
+              <div class="t-title">VP of Business Development &middot; [B2B Technology Company]</div>
+            </div>
+          </div>
+
+          <!-- Replace with real testimonial when available -->
+          <div class="testimonial-card fade-up">
+            <div class="t-stars">
+              <svg viewBox="0 0 12 12" fill="currentColor"><path d="M6 1l1.2 3.6H11L8.2 7l1.2 3.6L6 8.8l-3.4 1.8L3.8 7 1 4.6h3.8z"/></svg>
+              <svg viewBox="0 0 12 12" fill="currentColor"><path d="M6 1l1.2 3.6H11L8.2 7l1.2 3.6L6 8.8l-3.4 1.8L3.8 7 1 4.6h3.8z"/></svg>
+              <svg viewBox="0 0 12 12" fill="currentColor"><path d="M6 1l1.2 3.6H11L8.2 7l1.2 3.6L6 8.8l-3.4 1.8L3.8 7 1 4.6h3.8z"/></svg>
+              <svg viewBox="0 0 12 12" fill="currentColor"><path d="M6 1l1.2 3.6H11L8.2 7l1.2 3.6L6 8.8l-3.4 1.8L3.8 7 1 4.6h3.8z"/></svg>
+              <svg viewBox="0 0 12 12" fill="currentColor"><path d="M6 1l1.2 3.6H11L8.2 7l1.2 3.6L6 8.8l-3.4 1.8L3.8 7 1 4.6h3.8z"/></svg>
+            </div>
+            <p class="t-quote">"The automated reporting alone is worth it. Every month we get a clean breakdown of what performed, what didn't, and what the plan is for next month. We haven't had to ask for anything — it just shows up."</p>
+            <div class="t-author">
+              <div class="t-name">[Name]</div><!-- Replace with real name when available -->
+              <div class="t-title">Director of Operations &middot; [Professional Services Firm]</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================================================
+         FAQ
+    ====================================================== -->
+    <section id="faq">
+      <div class="wrap">
+        <div class="section-hd fade-up">
+          <p class="eyebrow">FAQ</p>
+          <h2 class="section-title">Common Questions.</h2>
+        </div>
+
+        <div class="faq-list fade-up">
+          <div class="faq-item">
+            <button class="faq-q">What industries do you work with?<span class="faq-ico"><svg width="9" height="9" viewBox="0 0 9 9" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M4.5 1v7M1 4.5h7"/></svg></span></button>
+            <div class="faq-body"><p>We specialize in B2B professional services companies — consulting, technology, financial services, and any business selling to other businesses. Our content speaks credibly to sophisticated professional audiences — not consumer markets.</p></div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-q">Do I need to provide creative direction or copy?<span class="faq-ico"><svg width="9" height="9" viewBox="0 0 9 9" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M4.5 1v7M1 4.5h7"/></svg></span></button>
+            <div class="faq-body"><p>No. We handle all creative direction, copywriting, and production. You review and approve before anything goes live. We revise based on your feedback.</p></div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-q">How do I know the content will sound like my brand?<span class="faq-ico"><svg width="9" height="9" viewBox="0 0 9 9" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M4.5 1v7M1 4.5h7"/></svg></span></button>
+            <div class="faq-body"><p>We extract your brand identity from your website and existing materials during onboarding, then build a brand voice document that governs every piece of content. If something doesn't feel right, we revise it — no limit.</p></div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-q">What if I want to cancel?<span class="faq-ico"><svg width="9" height="9" viewBox="0 0 9 9" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M4.5 1v7M1 4.5h7"/></svg></span></button>
+            <div class="faq-body"><p>No minimum commitment. Cancel before the next billing cycle. We earn the retainer every month — we don't lock clients into contracts.</p></div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-q">How long does it take to go live?<span class="faq-ico"><svg width="9" height="9" viewBox="0 0 9 9" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M4.5 1v7M1 4.5h7"/></svg></span></button>
+            <div class="faq-body"><p>From signing to first posts live: under two weeks. Every month after that gets faster.</p></div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-q">What platforms do you manage?<span class="faq-ico"><svg width="9" height="9" viewBox="0 0 9 9" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M4.5 1v7M1 4.5h7"/></svg></span></button>
+            <div class="faq-body"><p>LinkedIn, Instagram, and Facebook — all included in Standard and Premium. Starter includes LinkedIn plus one additional platform of your choice.</p></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================================================
+         CONTACT
+    ====================================================== -->
+    <section id="contact">
+      <div class="wrap">
+        <div class="contact-grid">
+          <div class="contact-left fade-up">
+            <p class="eyebrow">Get Started</p>
+            <h2>Ready to Close<br>the Gap?</h2>
+            <p>Book a free 30-minute call. We'll look at your current presence, identify the gaps, and show you exactly what a Medira strategy looks like for your business.</p>
+            <!-- Replace #calendly with real Calendly link -->
+            <a href="#calendly" class="btn btn-primary">Book a Discovery Call</a>
+          </div>
+
+          <div class="contact-right fade-up">
+            <form class="contact-form" id="contact-form" novalidate>
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="f-name">Name <span style="color:var(--accent)">*</span></label>
+                  <input type="text" id="f-name" name="name" placeholder="Your full name" required>
+                </div>
+                <div class="form-group">
+                  <label for="f-company">Company <span style="color:var(--accent)">*</span></label>
+                  <input type="text" id="f-company" name="company" placeholder="Company name" required>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="f-email">Email <span style="color:var(--accent)">*</span></label>
+                <input type="email" id="f-email" name="email" placeholder="you@company.com" required>
+              </div>
+              <div class="form-group">
+                <label for="f-msg">Message</label>
+                <textarea id="f-msg" name="message" placeholder="Tell us about your business and goals..."></textarea>
+              </div>
+              <button type="submit" class="btn btn-primary form-submit">Send Message</button>
+              <p class="form-note">We respond to every message within 24 hours.</p>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer id="footer">
+    <div class="wrap">
+      <div class="footer-main">
+        <div>
+          <div class="footer-brand-name">Medira Scaling</div>
+          <p class="footer-tagline">AI-Powered Marketing. Human-Led Strategy.<br>Results That Scale.</p>
+          <p class="footer-copy">&copy; 2026 Medira Scaling. All rights reserved.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Quick Links</h4>
+          <ul>
+            <li><a href="#services">Services</a></li>
+            <li><a href="#process">Process</a></li>
+            <li><a href="#pricing">Pricing</a></li>
+            <li><a href="#contact">Contact</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Connect</h4>
+          <p class="footer-body">Built for B2B teams that are serious about growth.</p>
+          <div class="social-icons">
+            <!-- Replace # with real social links -->
+            <a href="#" class="social-icon" aria-label="LinkedIn">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/></svg>
+            </a>
+            <a href="#" class="social-icon" aria-label="Instagram">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        Medira Scaling &mdash; AI-Powered Social Media Marketing for B2B Companies
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    'use strict';
+
+    /* ====================================================
+       HERO CANVAS — blue-tinted particle field
+    ==================================================== */
+    (function () {
+      var canvas = document.getElementById('hero-canvas');
+      if (!canvas) return;
+      var ctx = canvas.getContext('2d');
+      var raf, w, h, dots;
+      var SPACING = 40;
+      var mouse = { x: -9999, y: -9999 };
+      var t0 = Date.now();
+
+      function resize() {
+        cancelAnimationFrame(raf);
+        w = canvas.width  = canvas.offsetWidth;
+        h = canvas.height = canvas.offsetHeight;
+        buildDots();
+        loop();
+      }
+
+      function buildDots() {
+        dots = [];
+        var cols = Math.ceil(w / SPACING) + 2;
+        var rows = Math.ceil(h / SPACING) + 2;
+        for (var r = 0; r < rows; r++) {
+          for (var c = 0; c < cols; c++) {
+            dots.push({ bx: c * SPACING, by: r * SPACING, ph: Math.random() * Math.PI * 2 });
+          }
+        }
+      }
+
+      function loop() {
+        ctx.clearRect(0, 0, w, h);
+        var t = (Date.now() - t0) * 0.001;
+
+        for (var i = 0; i < dots.length; i++) {
+          var d = dots[i];
+          var dx = mouse.x - d.bx, dy = mouse.y - d.by;
+          var dist = Math.sqrt(dx * dx + dy * dy);
+          var px = d.bx, py = d.by;
+
+          if (dist < 100 && dist > 0.1) {
+            var f = (1 - dist / 100) * 16;
+            px -= (dx / dist) * f;
+            py -= (dy / dist) * f;
+          }
+
+          // Breathing opacity — slightly blue-tinted
+          var alpha = 0.05 + 0.035 * Math.sin(t * 0.55 + d.ph);
+          var ex = Math.min(d.bx / 80, (w - d.bx) / 80, 1);
+          var ey = Math.min(d.by / 80, (h - d.by) / 80, 1);
+          alpha *= Math.min(ex, ey, 1);
+
+          ctx.globalAlpha = alpha;
+          ctx.fillStyle = '#93C5FD'; // cool blue dots
+          ctx.beginPath();
+          ctx.arc(px, py, 0.9, 0, 6.283);
+          ctx.fill();
+        }
+        ctx.globalAlpha = 1;
+        raf = requestAnimationFrame(loop);
+      }
+
+      var heroEl = document.getElementById('hero');
+      heroEl.addEventListener('mousemove', function (e) {
+        var r = canvas.getBoundingClientRect();
+        mouse.x = e.clientX - r.left;
+        mouse.y = e.clientY - r.top;
+      });
+      heroEl.addEventListener('mouseleave', function () { mouse.x = -9999; mouse.y = -9999; });
+      window.addEventListener('resize', resize);
+      resize();
+    })();
+
+
+    /* ====================================================
+       SCROLL ANIMATIONS
+    ==================================================== */
+    (function () {
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) {
+          if (e.isIntersecting) e.target.classList.add('in');
+        });
+      }, { threshold: 0.12 });
+      document.querySelectorAll('.fade-up').forEach(function (el) { io.observe(el); });
+    })();
+
+
+    /* ====================================================
+       ACTIVE NAV
+    ==================================================== */
+    (function () {
+      var sections = document.querySelectorAll('section[id]');
+      var links    = document.querySelectorAll('.nav-links a');
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) {
+          if (e.isIntersecting) {
+            links.forEach(function (a) {
+              a.classList.toggle('active', a.getAttribute('href') === '#' + e.target.id);
+            });
+          }
+        });
+      }, { threshold: 0.35, rootMargin: '-62px 0px -62px 0px' });
+      sections.forEach(function (s) { io.observe(s); });
+    })();
+
+
+    /* ====================================================
+       HAMBURGER
+    ==================================================== */
+    (function () {
+      var btn = document.getElementById('hamburger');
+      var nav = document.getElementById('mobile-nav');
+      var links = document.querySelectorAll('#mobile-nav a');
+
+      function close() {
+        btn.classList.remove('open');
+        nav.classList.remove('open');
+        nav.setAttribute('aria-hidden', 'true');
+        btn.setAttribute('aria-expanded', 'false');
+        document.body.style.overflow = '';
+      }
+
+      btn.addEventListener('click', function () {
+        var opening = !nav.classList.contains('open');
+        if (opening) {
+          btn.classList.add('open');
+          nav.classList.add('open');
+          nav.setAttribute('aria-hidden', 'false');
+          btn.setAttribute('aria-expanded', 'true');
+          document.body.style.overflow = 'hidden';
+        } else { close(); }
+      });
+
+      links.forEach(function (a) { a.addEventListener('click', close); });
+      document.addEventListener('keydown', function (e) { if (e.key === 'Escape') close(); });
+    })();
+
+
+    /* ====================================================
+       FAQ ACCORDION
+    ==================================================== */
+    (function () {
+      var items = document.querySelectorAll('.faq-item');
+      items.forEach(function (item) {
+        item.querySelector('.faq-q').addEventListener('click', function () {
+          var open = item.classList.contains('open');
+          items.forEach(function (i) { i.classList.remove('open'); });
+          if (!open) item.classList.add('open');
+        });
+      });
+    })();
+
+
+    /* ====================================================
+       CONTACT FORM
+    ==================================================== */
+    (function () {
+      var form = document.getElementById('contact-form');
+      if (!form) return;
+      form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        var name    = form.querySelector('#f-name').value.trim();
+        var company = form.querySelector('#f-company').value.trim();
+        var email   = form.querySelector('#f-email').value.trim();
+        if (!name || !company || !email) {
+          [['#f-name', name], ['#f-company', company], ['#f-email', email]].forEach(function (p) {
+            if (!p[1]) {
+              var el = form.querySelector(p[0]);
+              el.style.borderColor = '#EF4444';
+              el.style.boxShadow   = '0 0 0 3px rgba(239,68,68,0.12)';
+              setTimeout(function () { el.style.borderColor = ''; el.style.boxShadow = ''; }, 2200);
+            }
+          });
+          return;
+        }
+        var btn = form.querySelector('.form-submit');
+        var orig = btn.textContent;
+        btn.textContent = 'Message Sent ✓';
+        btn.style.background = '#065f46';
+        btn.disabled = true;
+        setTimeout(function () {
+          btn.textContent = orig;
+          btn.style.background = '';
+          btn.disabled = false;
+          form.reset();
+        }, 3500);
+      });
+    })();
+
+
+    /* ====================================================
+       SMOOTH SCROLL for anchor links
+    ==================================================== */
+    (function () {
+      document.querySelectorAll('a[href^="#"]').forEach(function (a) {
+        a.addEventListener('click', function (e) {
+          var id = a.getAttribute('href').slice(1);
+          if (!id) return;
+          var target = document.getElementById(id);
+          if (!target) return;
+          e.preventDefault();
+          var navH = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--nav-h'), 10) || 70;
+          window.scrollTo({ top: target.getBoundingClientRect().top + window.pageYOffset - navH, behavior: 'smooth' });
+        });
+      });
+    })();
+
+  </script>
+</body>
+</html>
